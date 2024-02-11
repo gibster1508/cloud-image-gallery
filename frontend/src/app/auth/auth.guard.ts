@@ -40,7 +40,7 @@ export class AuthGuard extends KeycloakAuthGuard {
     }
 
     // If user doesn't have necessary roles, redirect to error page
-    this.router.navigate(['access-denied']);
+    await this.router.navigate(['access-denied']);
     return false;
   }
 

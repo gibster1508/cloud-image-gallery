@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {AuthService} from "../auth/auth.service";
-import {WebApiService} from "../api/web-api.service";
+import {AuthService} from "../../auth/auth.service";
+import {WebApiService} from "../../service/web-api.service";
 
 @Component({
   selector: 'app-user-info',
   templateUrl: './user-info.component.html',
-  styleUrls: ['./user-info.component.css']
+  styleUrls: ['./user-info.component.scss']
 })
 export class UserInfoComponent implements OnInit {
 
