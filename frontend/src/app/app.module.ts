@@ -11,20 +11,30 @@ import {HttpClientModule} from "@angular/common/http";
 import {AngularMaterialModule} from "./AngularMaterialModule";
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ImageGalleryComponent } from './components/image-gallery/image-gallery.component';
+import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
+import {NgxDropzoneModule} from "ngx-dropzone";
+import {NgxPaginationModule} from "ngx-pagination";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     AccessDeniedComponent,
     UserInfoComponent,
-    NavBarComponent
+    NavBarComponent,
+    ImageGalleryComponent,
+    ProgressBarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     KeycloakAngularModule,
     HttpClientModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    NgxDropzoneModule,
+    NgxPaginationModule,
+    FormsModule
   ],
   providers: [
     {

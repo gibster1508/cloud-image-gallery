@@ -7,12 +7,9 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class WebApiService {
-
   constructor(private http: HttpClient) { }
 
   public getUserInfo(): Observable<string> {
     return this.http.get(`${environment.apiUrl}/hello`, {responseType:'text'});
-    //return this.http.get(`${environment.apiUrl}/hello`, {responseType:'text'});
   }
-
 }

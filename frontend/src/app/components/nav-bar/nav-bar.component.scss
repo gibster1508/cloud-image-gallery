@@ -1,3 +1,12 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
+.account-button {
+  display: flex;
+  align-items: center;
+}
+
+.arrow-icon {
+  margin-left: 4px; /* Регулює відстань між текстом та іконкою */
+}

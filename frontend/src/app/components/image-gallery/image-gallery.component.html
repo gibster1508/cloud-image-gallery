@@ -1,0 +1,54 @@
+<mat-card class="container mt-4">
+  <mat-card-title class="text-center">Image Gallery</mat-card-title>
+
+  <mat-card-content class="mb-4">
+    <mat-card-subtitle>Upload Images</mat-card-subtitle>
+    <ngx-dropzone (change)="onSelect($event)" [accept]="allowedExtensions.join(',')">
+      <ngx-dropzone-label>Drop image here</ngx-dropzone-label>
+      <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+      </ngx-dropzone-preview>
+    </ngx-dropzone>
+    <button mat-raised-button color="primary" class="mt-2" (click)="onUpload()">Submit</button>
+    <app-progress-bar [progress]="uploadProgress"></app-progress-bar>
+  </mat-card-content>
+  <mat-card-content *ngIf="message" [ngClass]="{'alert alert-danger mt-4': !uploadSuccess, 'alert alert-success mt-4': uploadSuccess }">
+    {{ message }}
+  </mat-card-content>
+
+  <mat-card-content class="mb-4">
+    <mat-card-subtitle>Search Images</mat-card-subtitle>
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Enter a keyword"
+      class="form-control"
+      [(ngModel)]="searchKeyword"
+      (ngModelChange)="onSearchInputChange($event)">
+  </mat-card-content>
+
+  <!-- Image Display Section -->
+  <mat-card-content>
+    <mat-card-subtitle>Image Gallery</mat-card-subtitle>
+    <div id="imageGallery" class="row">
+      <div *ngFor="
+          let image of images
+            | paginate
+              : {
+                  itemsPerPage: 1,
+                  currentPage: pageNumber,
+                  totalItems: images.length,
+                }
+        ">
+        <mat-card>
+          <img [src]="image.url" alt="Image" class="card-img-top" style="width: 100%; height: 200px;">
+        </mat-card>
+      </div>
+    </div>
+    <div>
+      <pagination-controls
+        (pageChange)="renderPage($event)"
+      ></pagination-controls>
+    </div>
+  </mat-card-content>
+</mat-card>

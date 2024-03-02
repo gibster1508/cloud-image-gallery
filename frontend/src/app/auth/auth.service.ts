@@ -16,4 +16,7 @@ export class  AuthService {
     this.keycloakService.logout().then(() => this.keycloakService.clearToken());
   }
 
+  public isLoggedIn(): boolean {
+    return this.keycloakService.isLoggedIn()
+  }
 }
