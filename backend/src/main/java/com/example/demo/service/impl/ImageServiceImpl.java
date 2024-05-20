@@ -3,6 +3,8 @@ package com.example.demo.service.impl;
 import com.amazonaws.services.rekognition.model.Label;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3URI;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.DeleteObjectsResult;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.example.demo.config.properties.BucketProperties;
@@ -22,12 +24,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -67,6 +71,15 @@ public class ImageServiceImpl implements ImageService {
       }
     }
     log.info("Finished uploading files");
+  }
+
+  @Override
+  @Transactional
+  public void deleteImage(ImageMetadataDto imageMetadataDto) {
+    UUID imageId = imageMetadataDto.getId();
+    labelRepository.deleteByImageMetadataId(imageId);
+    imageRepository.deleteById(imageId);
+    log.info("Finished deleting image");
   }
 
   private void validateAndUploadImage(MultipartFile multipartFile) throws IOException {

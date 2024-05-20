@@ -21,4 +21,8 @@ export class ImageService {
     return this.http.post<any>(`${environment.apiUrl}/image/upload`,
       uploadImageData, { reportProgress: true, observe: 'events' });
   }
+
+  public deleteImage(params:any): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}/image/delete`, {params});
+  }
 }

@@ -1,8 +1,9 @@
-import { HttpClient, HttpEventType } from '@angular/common/http';
+import {HttpClient, HttpEventType, HttpParams} from '@angular/common/http';
 import { Component } from '@angular/core';
 import {NgxDropzoneChangeEvent} from "ngx-dropzone";
 import {ImageService} from "../../service/image-service";
 import {ImageMetadata} from "../../domain/ImageMetadata";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-image-gallery',
@@ -10,8 +11,11 @@ import {ImageMetadata} from "../../domain/ImageMetadata";
   styleUrl: './image-gallery.component.scss'
 })
 export class ImageGalleryComponent {
-  constructor(private httpClient: HttpClient,
-              private imageService: ImageService) {}
+  constructor(
+    private imageService: ImageService,
+    private _snackBar: MatSnackBar
+  ) {};
+
   allowedExtensions: string[] = ['.jpg', '.jpeg', '.png'];
   files: File[] = [];
   images: ImageMetadata[] = [];
@@ -27,7 +31,9 @@ export class ImageGalleryComponent {
 
     const nonImageFiles = event.addedFiles.filter(file => !this.isImageFile(file));
     if (nonImageFiles.length > 0) {
-      this.message ='Non-image files selected:';
+      this._snackBar.open('Non-image files selected', 'Close', {
+        panelClass: ['error-snackbar']
+      });
     }
   }
 
@@ -38,7 +44,6 @@ export class ImageGalleryComponent {
   }
 
   onRemove(event: any) {
-    console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
 
@@ -48,9 +53,10 @@ export class ImageGalleryComponent {
 
   onUpload() {
     this.uploadProgress = 0;
-    console.log(this.files);
     if (this.files.length === 0) {
-      this.message = 'No files selected';
+      this._snackBar.open('No files selected', 'Close', {
+        panelClass: ['error-snackbar']
+      });
       this.uploadSuccess = false;
       return;
     }
@@ -66,19 +72,24 @@ export class ImageGalleryComponent {
           this.uploadProgress = Math.round((event.loaded / event.total) * 100);
         }else if (event.type === HttpEventType.Response) {
           if (event.status === 200) {
-            this.message = 'Images uploaded successfully';
+            this._snackBar.open('Images uploaded successfully', 'Close', {
+              panelClass: ['success-snackbar']
+            });
             this.files = [];
             this.ngOnInit();
             this.uploadSuccess = true;
           } else if (event.status === 415) {
-            this.message = 'One or more files are not data';
+            this._snackBar.open('One or more files are not data', 'Close', {
+              panelClass: ['error-snackbar']
+            });
             this.uploadSuccess = false;
           } else {
-            this.message = 'Images not uploaded successfully';
+            this._snackBar.open('Images not uploaded successfully', 'Close', {
+              panelClass: ['error-snackbar']
+            });
             this.uploadSuccess = false;
           }
         }
-        console.log(this.message);
       });
   }
 
@@ -115,5 +126,26 @@ export class ImageGalleryComponent {
   renderPage(event: number) {
     this.pageNumber = event;
     this.getImages();
+  }
+
+
+  onImageRemove(image: ImageMetadata) {
+    const params = new HttpParams()
+      .set('id', image.id)
+      .set('url', image.url);
+
+    this.imageService.deleteImage(params)
+      .subscribe({
+        complete: () => {
+          this.images = this.images.filter(img => img.id !== image.id);
+          this._snackBar.open('Image deleted successfully', 'Close', {
+            panelClass: ['success-snackbar']
+          });
+        },
+        error: (error) => {
+          console.log("Error deleting image", error)
+        }
+      });
+
   }
 }

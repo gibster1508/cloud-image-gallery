@@ -1,14 +1,11 @@
-.container {
-  width: 100%; /* Задайте ширину контейнера, яка підходить для великих екранів */
-  margin: 0 auto; /* Центруємо контейнер на сторінці */
-  justify-content: center;
-  text-align: center;
+.image-card {
+  position: relative;
 }
 
-#imageGallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+.delete-icon {
+  position: absolute;
+  top: 0.1px;
+  right: 0.1px;
+  z-index: 1;
+  color: red;
 }
-
-

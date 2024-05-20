@@ -18,17 +18,12 @@
     <button mat-button [matMenuTriggerFor]="menu" class="account-button">
       <span>{{ userName }}</span>
       <span class="arrow-icon">
-    <mat-icon>arrow_drop_down</mat-icon>
-  </span>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </span>
     </button>
   </ng-container>
 
   <ng-template #loginButton>
-    <button mat-button>Login</button>
-  </ng-template>
-
-  <ng-template #loginButton>
-    <!-- Кнопка входу, якщо користувач не авторизований -->
     <button mat-button>Login</button>
   </ng-template>
 </mat-toolbar>
