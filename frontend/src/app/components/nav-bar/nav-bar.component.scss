@@ -10,3 +10,23 @@
 .arrow-icon {
   margin-left: 4px; /* Регулює відстань між текстом та іконкою */
 }
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Center items vertically */
+}
+
+.toolbar-content {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.toolbar-spacer {
+  flex-grow: 1; /* Allow the spacer to grow and fill the space */
+}
+
+.toolbar-content button {
+  margin-right: 8px; /* Adjust as needed */
+}

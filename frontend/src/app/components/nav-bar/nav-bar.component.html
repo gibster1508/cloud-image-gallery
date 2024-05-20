@@ -1,10 +1,20 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>Image Gallery</span>
+  <div class="toolbar-content" (click)="goToGlobalGallery()">
+    <button mat-icon-button aria-label="Go to Global Gallery">
+      <mat-icon>public</mat-icon>
+    </button>
+    <span>Global Gallery</span>
+  </div>
+  <div class="toolbar-content" (click)="goToPrivateGallery()">
+    <button mat-icon-button aria-label="Go to Private Gallery">
+      <mat-icon>lock</mat-icon>
+    </button>
+    <span>Private Gallery</span>
+  </div>
   <span class="example-spacer"></span>
+  <!-- Authentication section -->
   <ng-container *ngIf="isAuthenticated(); else loginButton">
+    <!-- Menu for authenticated users -->
     <mat-menu #menu="matMenu">
       <button mat-menu-item>
         <mat-icon>account_circle</mat-icon>
@@ -15,6 +25,7 @@
         <span>Logout</span>
       </button>
     </mat-menu>
+    <!-- Button to open the menu -->
     <button mat-button [matMenuTriggerFor]="menu" class="account-button">
       <span>{{ userName }}</span>
       <span class="arrow-icon">
@@ -22,7 +33,7 @@
       </span>
     </button>
   </ng-container>
-
+  <!-- Login button -->
   <ng-template #loginButton>
     <button mat-button>Login</button>
   </ng-template>

@@ -11,4 +11,6 @@ import java.util.UUID;
 @Repository
 public interface LabelRepository extends JpaRepository<ImageLabels, UUID> {
   Optional<List<ImageLabels>> findAllByLabelContains(String label);
+
+  void deleteByImageMetadataId(UUID imageId);
 }
