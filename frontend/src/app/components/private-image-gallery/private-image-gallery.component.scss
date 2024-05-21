@@ -1,0 +1,11 @@
+.image-card {
+  position: relative;
+}
+
+.delete-icon {
+  position: absolute;
+  top: 0.1px;
+  right: 0.1px;
+  z-index: 1;
+  color: red;
+}

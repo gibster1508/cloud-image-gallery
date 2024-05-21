@@ -1,0 +1,61 @@
+<div class="container mt-4">
+  <h1 class="text-center">Private Gallery</h1>
+
+  <!-- Upload Images Section -->
+  <div class="mb-4">
+    <mat-card class="mb-4">
+      <mat-card-content>
+        <ngx-dropzone (change)="onSelect($event)" [accept]="allowedExtensions.join(',')">
+          <ngx-dropzone-label>Drop image here or click to upload</ngx-dropzone-label>
+          <ngx-dropzone-preview *ngFor="let f of files; let i = index" [removable]="true" (removed)="onRemove(i)">
+            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+          </ngx-dropzone-preview>
+        </ngx-dropzone>
+      </mat-card-content>
+    </mat-card>
+    <div class="text-center">
+      <button mat-raised-button color="primary" class="mt-2" (click)="onUpload()" [disabled]="files.length < 1">Submit</button>
+    </div>
+    <br>
+    <app-progress-bar [progress]="uploadProgress"></app-progress-bar>
+  </div>
+
+  <!-- Search Images Section -->
+  <div class="mb-4">
+    <h2>Search Images</h2>
+    <mat-form-field appearance="outline">
+      <input
+        matInput
+        type="text"
+        id="searchInput"
+        placeholder="Enter a keyword"
+        [(ngModel)]="searchKeyword"
+        (ngModelChange)="onSearchInputChange($event)">
+    </mat-form-field>
+  </div>
+
+  <!-- Image Display Section -->
+  <div>
+    <h2 class="mt-4">Image Gallery</h2>
+    <div id="imageGallery" class="row">
+      <div class="col-md-3 mb-3" *ngFor="let image of images | paginate: {
+                  itemsPerPage: 4,
+                  currentPage: pageNumber,
+                  totalItems: images.length,
+                }
+        ">
+        <mat-card class="image-card">
+          <button mat-icon-button class="delete-icon" (click)="onImageRemove(image)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <img [src]="image.url" alt="Image" class="card-img-top" style="width: 100%; height: 200px;">
+        </mat-card>
+      </div>
+      <div class="d-flex justify-content-center">
+        <pagination-controls
+          (pageChange)="renderPage($event)"
+        ></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
