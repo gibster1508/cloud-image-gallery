@@ -8,13 +8,13 @@
 }
 
 .arrow-icon {
-  margin-left: 4px; /* Регулює відстань між текстом та іконкою */
+  margin-left: 4px;
 }
 
 .toolbar {
   display: flex;
-  justify-content: space-between;
-  align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Adjust spacing between items */
+  align-items: center;
 }
 
 .toolbar-content {
@@ -24,9 +24,13 @@
 }
 
 .toolbar-spacer {
-  flex-grow: 1; /* Allow the spacer to grow and fill the space */
+  flex-grow: 1;
 }
 
 .toolbar-content button {
-  margin-right: 8px; /* Adjust as needed */
+  margin-right: 0;
+}
+
+.toolbar-content button mat-icon {
+  margin-right: 0;
 }

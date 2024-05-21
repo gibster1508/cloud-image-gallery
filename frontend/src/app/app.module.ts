@@ -16,6 +16,7 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
 import {NgxDropzoneModule} from "ngx-dropzone";
 import {NgxPaginationModule} from "ngx-pagination";
 import {FormsModule} from "@angular/forms";
+import {PrivateImageGalleryComponent} from "./components/private-image-gallery/private-image-gallery.component";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {FormsModule} from "@angular/forms";
     UserInfoComponent,
     NavBarComponent,
     ImageGalleryComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    PrivateImageGalleryComponent
   ],
   imports: [
     BrowserModule,

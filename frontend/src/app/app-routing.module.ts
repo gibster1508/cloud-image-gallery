@@ -6,6 +6,7 @@ import {AuthGuard} from "./auth/auth.guard";
 import {UserInfoComponent} from "./components/user-info/user-info.component";
 import {MAT_SNACK_BAR_DEFAULT_OPTIONS} from "@angular/material/snack-bar";
 import {ImageGalleryComponent} from "./components/image-gallery/image-gallery.component";
+import {PrivateImageGalleryComponent} from "./components/private-image-gallery/private-image-gallery.component";
 
 const routes: Routes = [
   {
@@ -17,18 +18,19 @@ const routes: Routes = [
     path: 'user-info',
     component: UserInfoComponent,
     canActivate: [AuthGuard],
-    // The user need to have these roles to access page
-    data: {roles: ['USER']}
+    data: {roles: ['user']}
   },
   {
     path: '',
     component: ImageGalleryComponent,
     canActivate: [AuthGuard],
+    data: {roles: ['user']}
   },
   {
     path: 'private-gallery',
-    component: ImageGalleryComponent,
+    component: PrivateImageGalleryComponent,
     canActivate: [AuthGuard],
+    data: {roles: ['user']}
   }
 ];
 

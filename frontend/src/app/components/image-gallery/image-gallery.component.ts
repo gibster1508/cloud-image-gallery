@@ -1,9 +1,10 @@
-import {HttpClient, HttpEventType, HttpParams} from '@angular/common/http';
+import {HttpEventType, HttpParams} from '@angular/common/http';
 import { Component } from '@angular/core';
 import {NgxDropzoneChangeEvent} from "ngx-dropzone";
 import {ImageService} from "../../service/image-service";
 import {ImageMetadata} from "../../domain/ImageMetadata";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {GalleryType} from "../../domain/enums/GalleryType";
 
 @Component({
   selector: 'app-image-gallery',
@@ -65,7 +66,7 @@ export class ImageGalleryComponent {
     this.files.forEach(file => {
       uploadImageData.append('images', file, file.name);
     });
-
+    uploadImageData.append('galleryType', GalleryType.GLOBAL);
     this.imageService.uploadImages(uploadImageData)
       .subscribe((event) => {
         if (event.type === HttpEventType.UploadProgress) {
@@ -97,6 +98,7 @@ export class ImageGalleryComponent {
     let params: any = {};
     params['pageSize'] = 8;
     params['pageNumber'] = this.pageNumber;
+    params['galleryType'] = GalleryType.GLOBAL;
 
     this.imageService.getImages(params)
       .subscribe(
@@ -109,6 +111,7 @@ export class ImageGalleryComponent {
   onSearchInputChange(newValue: string) {
     let params: any = {};
     params['keyword'] = newValue;
+    params['galleryType'] = GalleryType.GLOBAL;
     params['pageSize'] = 8;
     params['pageNumber'] = this.pageNumber;
     if (this.searchKeyword === '') {

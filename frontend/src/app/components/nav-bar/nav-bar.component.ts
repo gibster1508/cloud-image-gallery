@@ -34,4 +34,8 @@ export class NavBarComponent implements OnInit {
   goToPrivateGallery(): Promise<boolean> {
     return this.router.navigate(['/private-gallery']);
   }
+
+  goToUserInfo(): Promise<boolean> {
+    return this.router.navigate(['/user-info']);
+  }
 }

@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="toolbar">
   <div class="toolbar-content" (click)="goToGlobalGallery()">
     <button mat-icon-button aria-label="Go to Global Gallery">
       <mat-icon>public</mat-icon>
@@ -11,12 +11,12 @@
     </button>
     <span>Private Gallery</span>
   </div>
-  <span class="example-spacer"></span>
+  <span class="toolbar-spacer"></span>
   <!-- Authentication section -->
   <ng-container *ngIf="isAuthenticated(); else loginButton">
     <!-- Menu for authenticated users -->
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button mat-menu-item (click)="goToUserInfo()">
         <mat-icon>account_circle</mat-icon>
         <span>View Account</span>
       </button>
